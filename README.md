@@ -1,5 +1,8 @@
 # CVW500k: Cross-View World 500k
 
+[![Project Page](https://img.shields.io/badge/Project-Page-1f6feb?style=for-the-badge)](PROJECT_PAGE_URL)
+[![Paper](https://img.shields.io/badge/Paper-PDF-b31b1b?style=for-the-badge)](PAPER_URL)
+
 Research utilities for **CVW500k**, a globally distributed cross-view geolocalization dataset, and **GeoQueryNet**, a query-based cross-view fusion transformer.
 
 This repository accompanies the manuscript:
@@ -73,22 +76,6 @@ The public Git repository contains lightweight source files and notebooks. Large
 | `helper_func.py` | Experiment logging and runtime helpers |
 | `*.ipynb` | Dataset cleaning and exploratory analysis notebooks |
 
-The following paths are local-only and ignored:
-
-| Ignored path | Local contents |
-| --- | --- |
-| `datasets/` | Image collections, paired CSVs, and train/test splits |
-| `metadata/` | Geographic, climate, land-cover, and coastline resources |
-| `csv/` | Derived and country-wise CSV subsets |
-| `evaluation/` | Model predictions and retrieval metrics |
-| `fig/`, `qualitative_figures/` | Generated plots and qualitative comparisons |
-| `downloaded_images/`, `satellite_images/` | Downloaded imagery |
-| `paper/` | Local manuscript PDF |
-| `cache/`, `logs/` | Temporary downloads, caches, and experiment logs |
-| `Landcover-208906/` | Local land-cover data |
-
-Archives (`*.zip`), `classified_points.csv`, `world_map.html`, and the local single-image downloader `main.py` are also ignored.
-
 ## Expected data format
 
 Each paired dataset row represents one location:
@@ -103,26 +90,6 @@ Each paired dataset row represents one location:
 
 Qualitative retrieval files use `query_row_index` as the query identifier. `retrieved_top5_sat_img_ids` contains ranked dataset row indices separated by `|`. Dataset row order must remain unchanged when reproducing an evaluation.
 
-## Installation
-
-Python 3.9 or newer is recommended.
-
-```bash
-python -m venv .venv
-source .venv/bin/activate
-python -m pip install pandas matplotlib pillow requests tqdm plotly jupyter
-```
-
-Optional packages:
-
-```bash
-# Geographic features in static maps
-python -m pip install cartopy
-
-# Plotly static-image export
-python -m pip install kaleido
-```
-
 ## Usage
 
 ### Visualize geographic coverage
@@ -136,16 +103,6 @@ python worldmap_display.py \
 ```
 
 Use a static extension such as `.png` or `.pdf` for static output. Use `--latitude-column` and `--longitude-column` when a CSV uses different coordinate names.
-
-### Generate qualitative comparisons
-
-Set the dataset root, test CSV, evaluation CSVs, output directory, sample count, and random seed in `qualitative_fig.py`, then run:
-
-```bash
-python qualitative_fig.py
-```
-
-The script selects examples for which GeoQueryNet is Top-1 correct while GeoDTR and QDFL are Top-1 incorrect. It creates comparisons containing the query, ground-truth satellite image, and each model’s five highest-ranked candidates.
 
 ### Download satellite images
 
@@ -162,10 +119,6 @@ Batch downloads may incur API charges. Check the relevant service terms, enabled
 The dataset, metadata, manuscript, evaluation tables, downloaded images, and generated figures are excluded from Git because of their size, provenance, or local nature. This repository alone is therefore not a complete CVW500k distribution.
 
 Access links for CVW500k data and GeoQueryNet checkpoints have not yet been added. When released, place downloaded data under `datasets/` or update the script paths to match your storage layout.
-
-## Security
-
-Never commit API keys or credentials. Store secrets in an ignored `.env` file or a system secret manager, restrict keys to the required APIs, and rotate any key that has previously appeared in source code or Git history.
 
 ## Limitations
 
