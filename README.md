@@ -44,7 +44,7 @@ This introduces several realistic challenges:
 - sparse and uneven global street-level coverage; and
 - architectural, climatic, and cultural variation across regions.
 
-## GeoQueryNet
+## GeoQueryNet [![Project Page](https://img.shields.io/badge/github-repo-blue?logo=github)](https://github.com/Fahim17/CVGL_D10.git)
 
 GeoQueryNet maps ground and satellite images into a shared retrieval space. Its main components are:
 
