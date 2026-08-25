@@ -15,9 +15,9 @@
 
 Research utilities for **CVW500k**, a globally distributed cross-view geolocalization dataset, and **GeoQueryNet**, a query-based cross-view fusion transformer.
 
-This repository accompanies the manuscript:
+<!--This repository accompanies the manuscript:
 
-> *Seeing Less in a Sparse World: Cross-View Geolocalization from Limited Field-of-View Observations*
+> *Seeing Less in a Sparse World: Cross-View Geolocalization from Limited Field-of-View Observations*-->
 
 Cross-view geolocalization retrieves the satellite image corresponding to a ground-level query. CVW500k makes this task more representative of real applications: its ground images have a limited field of view rather than the 360° panoramas common in earlier benchmarks, and its samples cover diverse countries, climates, landscapes, road environments, and urban–rural settings.
 
