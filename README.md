@@ -9,7 +9,9 @@
 [![Paper](https://img.shields.io/badge/Paper-PDF-b31b1b.svg)]()
 [![Project Page](https://img.shields.io/badge/Project-Page-245b4c.svg)]()
 
-
+<p align="center">
+  <img src="distribution.png" alt="Global distribution of CVW500k ground–satellite image pairs" width="100%">
+</p>
 
 Research utilities for **CVW500k**, a globally distributed cross-view geolocalization dataset, and **GeoQueryNet**, a query-based cross-view fusion transformer.
 
