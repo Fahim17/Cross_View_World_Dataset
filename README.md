@@ -1,7 +1,9 @@
 # CVW500k: Cross-View World 500k
 
-[![Project Page](https://img.shields.io/badge/Project-Page-1f6feb?style=for-the-badge)](PROJECT_PAGE_URL)
-[![Paper](https://img.shields.io/badge/Paper-PDF-b31b1b?style=for-the-badge)](PAPER_URL)
+[![Paper](https://img.shields.io/badge/Paper-PDF-b31b1b.svg)]()
+[![Project Page](https://img.shields.io/badge/Project-Page-245b4c.svg)]()
+
+
 
 Research utilities for **CVW500k**, a globally distributed cross-view geolocalization dataset, and **GeoQueryNet**, a query-based cross-view fusion transformer.
 
