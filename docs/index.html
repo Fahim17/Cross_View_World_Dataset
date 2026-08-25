@@ -114,12 +114,12 @@
       <div class="section-shell">
         <div class="section-number light">04 / Method</div>
         <div class="section-heading light"><h2>GeoQueryNet</h2><p>A query-based cross-view fusion transformer designed to recover geographically consistent information from views that only partially overlap.</p></div>
-        <div class="architecture" aria-label="GeoQueryNet architecture diagram">
-          <div class="stream"><span class="view-icon ground">▥</span><small>Ground image</small><div class="arrow">→</div><div class="module"><b>CLIP encoder</b><span>LoRA adapted</span></div></div>
-          <div class="alignment"><span>Learnable queries</span><div class="queries"><i></i><i></i><i></i><i></i><i></i></div><strong>Cross-View<br>Alignment Module</strong><small>Self-attention · Cross-attention · FFN × 12</small></div>
-          <div class="stream reverse"><span class="view-icon satellite">▦</span><small>Satellite image</small><div class="arrow">→</div><div class="module"><b>CLIP encoder</b><span>Shared weights + LoRA</span></div></div>
-          <div class="embedding"><div>z<sub>g</sub></div><span>contrastive matching</span><div>z<sub>s</sub></div></div>
-        </div>
+        <figure class="model-overview">
+          <div class="model-image">
+            <img src="GeoQueryNet.png" alt="Overview of GeoQueryNet showing shared LoRA-adapted image encoders, ground and satellite feature streams, the query-based Cross-View Alignment Module, and matching against the satellite gallery" loading="lazy">
+          </div>
+          <figcaption><strong>GeoQueryNet overview.</strong> Shared-weight image encoders produce view-specific features, which are refined by trainable query tokens through self-attention, cross-attention, and feed-forward layers before retrieval from the satellite gallery.</figcaption>
+        </figure>
         <div class="method-steps">
           <article><b>01</b><h3>Encode</h3><p>A shared CLIP visual encoder maps both viewpoints into a common feature space while LoRA preserves pretrained knowledge.</p></article>
           <article><b>02</b><h3>Align</h3><p>Learnable queries attend to the ground features and then the satellite features to isolate consistent cues.</p></article>
