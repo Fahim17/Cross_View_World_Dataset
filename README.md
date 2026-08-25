@@ -124,17 +124,17 @@ python main2.py
 
 Batch downloads may incur API charges. Check the relevant service terms, enabled APIs, billing, and quota before running the script.
 
-## Data and model availability
+<!-- ## Data and model availability
 
 The dataset, metadata, manuscript, evaluation tables, downloaded images, and generated figures are excluded from Git because of their size, provenance, or local nature. This repository alone is therefore not a complete CVW500k distribution.
 
-Access links for CVW500k data and GeoQueryNet checkpoints have not yet been added. When released, place downloaded data under `datasets/` or update the script paths to match your storage layout.
+Access links for CVW500k data and GeoQueryNet checkpoints have not yet been added. When released, place downloaded data under `datasets/` or update the script paths to match your storage layout. -->
 
 ## Limitations
 
 CVW500k remains spatially sparse at world scale and may leave large regions underrepresented. Repetitive visual patterns can produce plausible but geographically incorrect matches. GeoQueryNet also prioritizes retrieval performance over lightweight deployment and has a higher computational cost than the evaluated baselines.
 
-## Citation
+<!-- ## Citation
 
 The local manuscript is a draft with placeholder author and DOI fields. A finalized BibTeX entry will be added after publication metadata is available. Until then, refer to the work by its title:
 
@@ -145,4 +145,4 @@ Limited Field-of-View Observations. ACM SIGSPATIAL, 2026.
 
 ## License
 
-A repository license has not yet been added. The source dataset, Google Maps imagery, metadata sources, and manuscript material remain subject to their respective licenses and service terms.
+A repository license has not yet been added. The source dataset, Google Maps imagery, metadata sources, and manuscript material remain subject to their respective licenses and service terms. -->

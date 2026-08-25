@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="CVW500k is a globally distributed cross-view geolocalization dataset with 500,098 limited-FoV ground and satellite image pairs.">
+  <meta name="theme-color" content="#071612">
+  <title>CVW500k · Cross-View World 500k</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="CVW500k home">
+      <span class="brand-mark">CVW</span><span>500k</span>
+    </a>
+    <nav aria-label="Primary navigation">
+      <a href="#dataset">Dataset</a>
+      <a href="#method">Method</a>
+      <a href="#results">Results</a>
+      <a href="#citation">Citation</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero section-shell">
+      <div class="eyebrow"><span></span> ACM SIGSPATIAL 2026</div>
+      <h1>Seeing Less in<br>a <em>Sparse World.</em></h1>
+      <p class="hero-copy">Cross-view geolocalization from limited field-of-view observations at world scale.</p>
+      <p class="authors">Fahimul Aleem <span>·</span> Shruti Vyas</p>
+      <div class="actions">
+        <a class="button primary" href="#paper">Read the paper <span aria-hidden="true">↗</span></a>
+        <a class="button secondary" href="#dataset">Explore CVW500k <span aria-hidden="true">↓</span></a>
+      </div>
+      <div class="hero-stats" aria-label="Dataset summary">
+        <div><strong>500,098</strong><span>paired views</span></div>
+        <div><strong>Worldwide</strong><span>geographic scope</span></div>
+        <div><strong>Limited FoV</strong><span>ground imagery</span></div>
+        <div><strong>640 × 640</strong><span>satellite views</span></div>
+      </div>
+    </section>
+
+    <section class="teaser section-shell" aria-labelledby="teaser-title">
+      <div class="image-frame">
+        <img src="distribution.png" alt="World map showing the global distribution of CVW500k samples with representative ground-level images" loading="eager">
+      </div>
+      <div class="teaser-caption">
+        <p id="teaser-title">A sparse world, seen globally.</p>
+        <span>Inland and coastal samples across diverse road environments, landscapes, and settlements.</span>
+      </div>
+    </section>
+
+    <section class="intro section-shell" id="paper">
+      <div class="section-number">01 / Motivation</div>
+      <div class="intro-grid">
+        <h2>Geolocalization beyond the panorama.</h2>
+        <div>
+          <p class="lead">Cross-view geolocalization finds where a ground image was captured by retrieving its matching satellite view—an important capability when GNSS is unavailable or unreliable.</p>
+          <p>Existing benchmarks are often restricted to a few cities and rely on information-rich 360° panoramas. Real cameras see less. CVW500k combines limited directional observations with global geographic diversity, creating a more realistic and substantially harder retrieval problem.</p>
+        </div>
+      </div>
+      <div class="challenge-grid">
+        <article><span>01</span><h3>Viewpoint gap</h3><p>Horizontal ground scenes and top-down satellite views exhibit extreme geometric and scale differences.</p></article>
+        <article><span>02</span><h3>Partial overlap</h3><p>A narrow ground view corresponds to only a small, unknown region of its satellite image.</p></article>
+        <article><span>03</span><h3>Global ambiguity</h3><p>Distant locations may share roads, vegetation, buildings, fields, and other repeating visual patterns.</p></article>
+      </div>
+    </section>
+
+    <section class="dataset" id="dataset">
+      <div class="section-shell">
+        <div class="section-number light">02 / Dataset</div>
+        <div class="dataset-heading">
+          <h2>Cross-View<br>World 500k</h2>
+          <p>CVW500k pairs limited-FoV images sampled from OpenStreetView-5M with corresponding satellite imagery collected at Google Maps zoom level 20. It spans continents, climates, cultural landscapes, and urban–rural environments.</p>
+        </div>
+        <div class="split-panel">
+          <div class="split-total"><strong>500,098</strong><span>ground–satellite pairs</span></div>
+          <div class="split-bars">
+            <div class="bar-row"><div><span>Training split</span><b>438,606</b></div><div class="bar"><i style="width:90%"></i></div></div>
+            <div class="bar-row"><div><span>Test split</span><b>48,735</b></div><div class="bar"><i style="width:10%"></i></div></div>
+            <div class="regional"><span>Regional test subset</span><strong>12,659</strong><small>Australia + New Zealand</small></div>
+          </div>
+        </div>
+        <div class="coverage-grid">
+          <div class="donut-card">
+            <div class="donut" role="img" aria-label="64 percent inland and 36 percent coastal"><span>64%<small>inland</small></span></div>
+            <div><h3>Coast to interior</h3><p>36% of samples lie within 35 miles of a coastline; 64% are inland.</p></div>
+          </div>
+          <div class="metadata-card">
+            <p>Rich geographic context</p>
+            <div class="tags"><span>Country</span><span>Region</span><span>City</span><span>Climate</span><span>Land cover</span><span>Road</span><span>Coast distance</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="comparison section-shell">
+      <div class="section-number">03 / Context</div>
+      <div class="section-heading"><h2>Built for a harder question.</h2><p>CVW500k moves cross-view retrieval from regional panoramas toward partial observations at world scale.</p></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dataset</th><th>Coverage</th><th>Ground FoV</th><th>Ground images</th><th>Satellite images</th><th>Sat. resolution</th></tr></thead>
+          <tbody>
+            <tr><td>CVUSA</td><td>City</td><td>Panorama</td><td>44,416</td><td>44,416</td><td>750 × 750</td></tr>
+            <tr><td>CVACT</td><td>City</td><td>Panorama</td><td>128,334</td><td>128,334</td><td>1200 × 1200</td></tr>
+            <tr><td>VIGOR</td><td>City</td><td>Panorama</td><td>238,696</td><td>90,618</td><td>640 × 640</td></tr>
+            <tr><td>GAMa</td><td>City</td><td>Limited</td><td>51,535</td><td>1.97M</td><td>256 × 256</td></tr>
+            <tr class="highlight"><td>CVW500k</td><td>Worldwide</td><td>Limited</td><td>500,098</td><td>500,098</td><td>640 × 640</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="method" id="method">
+      <div class="section-shell">
+        <div class="section-number light">04 / Method</div>
+        <div class="section-heading light"><h2>GeoQueryNet</h2><p>A query-based cross-view fusion transformer designed to recover geographically consistent information from views that only partially overlap.</p></div>
+        <div class="architecture" aria-label="GeoQueryNet architecture diagram">
+          <div class="stream"><span class="view-icon ground">▥</span><small>Ground image</small><div class="arrow">→</div><div class="module"><b>CLIP encoder</b><span>LoRA adapted</span></div></div>
+          <div class="alignment"><span>Learnable queries</span><div class="queries"><i></i><i></i><i></i><i></i><i></i></div><strong>Cross-View<br>Alignment Module</strong><small>Self-attention · Cross-attention · FFN × 12</small></div>
+          <div class="stream reverse"><span class="view-icon satellite">▦</span><small>Satellite image</small><div class="arrow">→</div><div class="module"><b>CLIP encoder</b><span>Shared weights + LoRA</span></div></div>
+          <div class="embedding"><div>z<sub>g</sub></div><span>contrastive matching</span><div>z<sub>s</sub></div></div>
+        </div>
+        <div class="method-steps">
+          <article><b>01</b><h3>Encode</h3><p>A shared CLIP visual encoder maps both viewpoints into a common feature space while LoRA preserves pretrained knowledge.</p></article>
+          <article><b>02</b><h3>Align</h3><p>Learnable queries attend to the ground features and then the satellite features to isolate consistent cues.</p></article>
+          <article><b>03</b><h3>Retrieve</h3><p>InfoNCE training pulls positive pairs together and pushes mismatched satellite candidates apart.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="results section-shell" id="results">
+      <div class="section-number">05 / Results</div>
+      <div class="section-heading"><h2>Stronger at every rank.</h2><p>GeoQueryNet substantially improves exact and candidate-list retrieval on the world-scale CVW500k test set.</p></div>
+      <div class="result-hero">
+        <div><strong>15.19</strong><span>R@1</span></div>
+        <div><strong>42.10</strong><span>R@5</span></div>
+        <div><strong>54.04</strong><span>R@10</span></div>
+        <div><strong>90.87</strong><span>R@1%</span></div>
+      </div>
+      <div class="results-grid">
+        <div class="chart-card">
+          <h3>Top-ranked retrieval</h3>
+          <p>Recall@1 on CVW500k (%)</p>
+          <div class="bars">
+            <div><span>GeoQueryNet</span><i><b style="width:100%"></b></i><strong>15.19</strong></div>
+            <div><span>QDFL</span><i><b style="width:54%"></b></i><strong>8.19</strong></div>
+            <div><span>CAMP</span><i><b style="width:36%"></b></i><strong>5.47</strong></div>
+            <div><span>ConGeo</span><i><b style="width:32%"></b></i><strong>4.80</strong></div>
+            <div><span>MEAN</span><i><b style="width:23%"></b></i><strong>3.45</strong></div>
+          </div>
+        </div>
+        <div class="finding-card">
+          <span class="big-number">+85%</span>
+          <h3>relative R@1 gain</h3>
+          <p>over QDFL, the strongest reported baseline at exact Top-1 retrieval, based on the paper’s table values.</p>
+          <hr>
+          <p><strong>LoRA rank 32</strong> offers the best balance in the ablation, reaching the full model’s strongest R@1, R@5, and R@10.</p>
+        </div>
+      </div>
+      <div class="full-table table-wrap">
+        <table>
+          <thead><tr><th>Method</th><th>R@1</th><th>R@5</th><th>R@10</th><th>R@1%</th></tr></thead>
+          <tbody>
+            <tr><td>Sample4Geo</td><td>0.22</td><td>0.86</td><td>1.52</td><td>23.98</td></tr>
+            <tr><td>GeoDTR</td><td>2.01</td><td>6.95</td><td>11.08</td><td>70.44</td></tr>
+            <tr><td>GeoDTR+</td><td>2.63</td><td>8.71</td><td>13.81</td><td>75.45</td></tr>
+            <tr><td>ConGeo</td><td>4.80</td><td>13.35</td><td>18.97</td><td>69.87</td></tr>
+            <tr><td>MEAN</td><td>3.45</td><td>11.38</td><td>17.43</td><td>80.96</td></tr>
+            <tr><td>CAMP</td><td>5.47</td><td>15.87</td><td>23.38</td><td>85.07</td></tr>
+            <tr><td>DSTG</td><td>0.01</td><td>0.03</td><td>0.05</td><td>2.49</td></tr>
+            <tr><td>QDFL</td><td>8.19</td><td>19.75</td><td>26.82</td><td>38.32</td></tr>
+            <tr><td>SDPL</td><td>2.30</td><td>6.77</td><td>9.98</td><td>47.02</td></tr>
+            <tr class="highlight"><td>GeoQueryNet</td><td>15.19</td><td>42.10</td><td>54.04</td><td>90.87</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="analysis">
+      <div class="section-shell">
+        <div class="section-number light">06 / Analysis</div>
+        <div class="analysis-grid">
+          <div><h2>Where it works.<br>Where it struggles.</h2><p>Country-wise R@1 ranges from roughly 26% to 49% in dedicated regional experiments. Australia reaches 49.21% R@1, while Zambia reaches 93.96% R@10.</p></div>
+          <div class="limitations"><h3>Known limitations</h3><ul><li>World-scale coverage is inherently sparse and geographically uneven.</li><li>Repeated roads, blocks, vegetation, and fields create visually plausible false matches.</li><li>GeoQueryNet prioritizes representational capacity over lightweight deployment.</li></ul></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="citation section-shell" id="citation">
+      <div class="section-number">07 / Citation</div>
+      <div class="citation-grid">
+        <div><h2>Cite this work</h2><p>The manuscript currently contains provisional publication metadata. Replace this entry when the final DOI and proceedings information are available.</p></div>
+        <pre><code>@inproceedings{aleem2026cvw500k,
+  title  = {Seeing Less in a Sparse World: Cross-View
+            Geolocalization from Limited Field-of-View Observations},
+  author = {Aleem, Fahimul and Vyas, Shruti},
+  booktitle = {ACM SIGSPATIAL},
+  year   = {2026}
+}</code></pre>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="section-shell"><span>CVW500k · GeoQueryNet</span><span>Cross-view geolocalization at world scale.</span></div>
+  </footer>
+</body>
+</html>
