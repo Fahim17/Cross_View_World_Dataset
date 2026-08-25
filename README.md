@@ -1,64 +1,131 @@
-# World Dataset Research Toolkit
+# CVW500k: Cross-View World 500k
 
-Utilities, dataset metadata, evaluation results, and visualizations for cross-view geolocation research using ground-level and satellite imagery. The repository includes tools for downloading imagery, preparing geographic dataset splits, plotting global coverage, and comparing image-retrieval models qualitatively.
+Research utilities for **CVW500k**, a globally distributed cross-view geolocalization dataset, and **GeoQueryNet**, a query-based cross-view fusion transformer.
 
-## Repository contents
+This repository accompanies the manuscript:
 
-| Path | Description |
+> *Seeing Less in a Sparse World: Cross-View Geolocalization from Limited Field-of-View Observations*
+
+Cross-view geolocalization retrieves the satellite image corresponding to a ground-level query. CVW500k makes this task more representative of real applications: its ground images have a limited field of view rather than the 360° panoramas common in earlier benchmarks, and its samples cover diverse countries, climates, landscapes, road environments, and urban–rural settings.
+
+## Highlights
+
+- **500,098 ground–satellite image pairs** with worldwide coverage
+- Ground imagery sampled from OpenStreetView-5M
+- Corresponding **640 × 640** satellite images collected at Google Maps zoom level 20
+- Limited-field-of-view ground images instead of panoramas
+- **438,606 training pairs** and **48,735 test pairs**
+- An additional **12,659-pair Australia–New Zealand regional test subset**
+- Coastal and inland environments; the paper reports 36% coastal and 64% inland
+- Country, region, city, climate, land-cover, road, and coastline-related metadata
+
+## Why CVW500k?
+
+Established datasets such as CVUSA, CVACT, and VIGOR are concentrated in a small number of cities or regions and primarily use panoramic ground views. CVW500k increases geographic diversity and retrieval difficulty by combining world-scale coverage with partial, directional observations.
+
+This introduces several realistic challenges:
+
+- severe viewpoint and scale differences between ground and satellite images;
+- limited overlap between a ground image and its satellite counterpart;
+- visually repetitive roads, buildings, vegetation, and agricultural patterns;
+- sparse and uneven global street-level coverage; and
+- architectural, climatic, and cultural variation across regions.
+
+## GeoQueryNet
+
+GeoQueryNet maps ground and satellite images into a shared retrieval space. Its main components are:
+
+1. A shared **CLIP visual encoder** for both views.
+2. **LoRA adaptation** for parameter-efficient fine-tuning.
+3. A **Cross-View Alignment Module (CVAM)** using learnable query tokens and cross-attention.
+4. A contrastive objective that brings matching ground–satellite pairs together and separates non-matching pairs.
+
+The query tokens attend first to limited-FoV ground features and then to satellite features, extracting geographically consistent information despite partial scene overlap. The paper’s training configuration uses a BLIP-2 Q-Former backbone, 768-dimensional embeddings, Adam with a learning rate of `1e-5`, and LoRA rank 32.
+
+## Results
+
+The manuscript reports the following retrieval results on the CVW500k test set:
+
+| Method | R@1 | R@5 | R@10 | R@1% |
+| --- | ---: | ---: | ---: | ---: |
+| Sample4Geo | 0.22 | 0.86 | 1.52 | 23.98 |
+| GeoDTR | 2.01 | 6.95 | 11.08 | 70.44 |
+| GeoDTR+ | 2.63 | 8.71 | 13.81 | 75.45 |
+| ConGeo | 4.80 | 13.35 | 18.97 | 69.87 |
+| MEAN | 3.45 | 11.38 | 17.43 | 80.96 |
+| CAMP | 5.47 | 15.87 | 23.38 | 85.07 |
+| DSTG | 0.01 | 0.03 | 0.05 | 2.49 |
+| QDFL | 8.19 | 19.75 | 26.82 | 38.32 |
+| SDPL | 2.30 | 6.77 | 9.98 | 47.02 |
+| **GeoQueryNet** | **15.19** | **42.10** | **54.04** | **90.87** |
+
+Values are percentages. R@K measures whether the correct satellite match appears among the first K candidates; R@1% checks whether it appears in the top 1% of the gallery. The paper also finds that both LoRA adaptation and CVAM are important, with LoRA rank 32 producing the strongest R@1, R@5, and R@10 in the reported rank ablation.
+
+## Repository layout
+
+The public Git repository contains lightweight source files and notebooks. Large data and generated artifacts are intentionally excluded by `.gitignore`.
+
+| Tracked source | Purpose |
 | --- | --- |
-| `datasets/` | OSV5M/OSV500K metadata, dataset splits, and image-path references |
-| `csv/` | Combined, country-wise, and experimental CSV splits |
-| `evaluation/` | Retrieval outputs and Recall@1/5/10 metrics for GeoQueryNet, GeoDTR, and QDFL |
-| `fig/` | Dataset statistics, geographic maps, and retrieval figures |
-| `qualitative_figures/` | Generated side-by-side retrieval comparisons |
-| `metadata/` | Supporting geographic and land-cover metadata |
-| `main.py` | Download a Google Street View image for one coordinate |
-| `main2.py` | Batch-download Google Static Maps satellite images from an OSV5M CSV |
-| `worldmap_display.py` | Plot latitude/longitude samples on an interactive or static world map |
-| `qualitative_fig.py` | Compare the top-five satellite retrievals from three models |
-| `helper_func.py` | Experiment ID, logging, and runtime helpers |
-| `*.ipynb` | Exploratory data cleaning and analysis notebooks |
+| `main2.py` | Batch-download satellite images for coordinates in an OSV5M CSV |
+| `worldmap_display.py` | Create interactive or static maps of dataset coordinates |
+| `qualitative_fig.py` | Compare Top-5 retrievals from GeoQueryNet, GeoDTR, and QDFL |
+| `helper_func.py` | Experiment logging and runtime helpers |
+| `*.ipynb` | Dataset cleaning and exploratory analysis notebooks |
 
-## Dataset format
+The following paths are local-only and ignored:
 
-The primary paired CSV files use one row per location. A typical row contains:
+| Ignored path | Local contents |
+| --- | --- |
+| `datasets/` | Image collections, paired CSVs, and train/test splits |
+| `metadata/` | Geographic, climate, land-cover, and coastline resources |
+| `csv/` | Derived and country-wise CSV subsets |
+| `evaluation/` | Model predictions and retrieval metrics |
+| `fig/`, `qualitative_figures/` | Generated plots and qualitative comparisons |
+| `downloaded_images/`, `satellite_images/` | Downloaded imagery |
+| `paper/` | Local manuscript PDF |
+| `cache/`, `logs/` | Temporary downloads, caches, and experiment logs |
+| `Landcover-208906/` | Local land-cover data |
 
-- `id`, `latitude`, and `longitude`
-- country, region, sub-region, and city metadata
-- `gnd_image_path`: path to the ground-level image
-- `sat_image_path`: path to the paired satellite image
+Archives (`*.zip`), `classified_points.csv`, `world_map.html`, and the local single-image downloader `main.py` are also ignored.
 
-Retrieval result files identify a query using `query_row_index` and store ranked satellite row indices in `retrieved_top5_sat_img_ids`, separated by `|`.
+## Expected data format
 
-Image files are expected beneath the dataset root referenced by the CSV paths. Large image collections may need to be obtained separately and are not necessarily included in the Git repository.
+Each paired dataset row represents one location:
 
-## Setup
+| Column | Description |
+| --- | --- |
+| `id` | Ground-image identifier |
+| `latitude`, `longitude` | Geographic coordinates |
+| `country`, `region`, `sub-region`, `city` | Location metadata |
+| `gnd_image_path` | Ground-image path relative to the dataset root |
+| `sat_image_path` | Paired satellite-image path relative to the dataset root |
 
-Python 3.9 or newer is recommended. Create a virtual environment and install the core dependencies:
+Qualitative retrieval files use `query_row_index` as the query identifier. `retrieved_top5_sat_img_ids` contains ranked dataset row indices separated by `|`. Dataset row order must remain unchanged when reproducing an evaluation.
+
+## Installation
+
+Python 3.9 or newer is recommended.
 
 ```bash
 python -m venv .venv
 source .venv/bin/activate
-python -m pip install pandas matplotlib pillow requests tqdm plotly
+python -m pip install pandas matplotlib pillow requests tqdm plotly jupyter
 ```
 
-Optional dependencies:
+Optional packages:
 
 ```bash
-# Geographic map features for static plots
+# Geographic features in static maps
 python -m pip install cartopy
 
-# Plotly static image export
+# Plotly static-image export
 python -m pip install kaleido
 ```
 
-Jupyter is also required to run the included notebooks.
-
 ## Usage
 
-### Plot dataset coverage
-
-Generate an interactive HTML map:
+### Visualize geographic coverage
 
 ```bash
 python worldmap_display.py \
@@ -68,65 +135,51 @@ python worldmap_display.py \
   --no-show
 ```
 
-Generate a static image:
+Use a static extension such as `.png` or `.pdf` for static output. Use `--latitude-column` and `--longitude-column` when a CSV uses different coordinate names.
 
-```bash
-python worldmap_display.py \
-  --input csv/all.csv \
-  --category-column country \
-  --output world_map.png \
-  --no-show
-```
+### Generate qualitative comparisons
 
-Custom coordinate column names can be supplied with `--latitude-column` and `--longitude-column`.
-
-### Generate qualitative retrieval comparisons
-
-Before running `qualitative_fig.py`, update its configuration section with:
-
-- the local OSV500K dataset root and test CSV
-- the GeoQueryNet, GeoDTR, and QDFL result CSV paths
-- the desired output directory, sample count, and random seed
-
-Then run:
+Set the dataset root, test CSV, evaluation CSVs, output directory, sample count, and random seed in `qualitative_fig.py`, then run:
 
 ```bash
 python qualitative_fig.py
 ```
 
-The script selects cases where GeoQueryNet retrieves the correct Top-1 match while GeoDTR and QDFL do not. It writes comparison images and the selected query indices to `qualitative_figures/`.
+The script selects examples for which GeoQueryNet is Top-1 correct while GeoDTR and QDFL are Top-1 incorrect. It creates comparisons containing the query, ground-truth satellite image, and each model’s five highest-ranked candidates.
 
-### Download map imagery
+### Download satellite images
 
-`main.py` downloads one Street View image, while `main2.py` downloads satellite images for a configured range of CSV rows. These scripts require a Google Maps Platform API key and enabled billing/APIs.
+Configure the input CSV, starting row, image count, output directory, and Google Maps Platform credentials in `main2.py`, then run:
 
-Before use:
+```bash
+python main2.py
+```
 
-1. Store the API key in an environment variable or another local secret store.
-2. Update the coordinate, input CSV, output directory, and row-range settings as needed.
-3. Confirm Google Maps Platform quotas and usage terms before starting a batch download.
+Batch downloads may incur API charges. Check the relevant service terms, enabled APIs, billing, and quota before running the script.
 
-Do not commit API keys, credentials, downloaded caches, or other secrets.
+## Data and model availability
 
-## Evaluation outputs
+The dataset, metadata, manuscript, evaluation tables, downloaded images, and generated figures are excluded from Git because of their size, provenance, or local nature. This repository alone is therefore not a complete CVW500k distribution.
 
-Each model directory under `evaluation/` contains retrieval metrics and query subsets such as:
+Access links for CVW500k data and GeoQueryNet checkpoints have not yet been added. When released, place downloaded data under `datasets/` or update the script paths to match your storage layout.
 
-- `retrieval_metrics.csv`
-- `qualitative_retrieval_results.csv`
-- `top1_correct_queries.csv`
-- `top5_correct_but_not_top1.csv`
-- `top10_correct_but_not_top5.csv`
+## Security
 
-These files support both aggregate recall analysis and inspection of individual successes and failures.
+Never commit API keys or credentials. Store secrets in an ignored `.env` file or a system secret manager, restrict keys to the required APIs, and rotate any key that has previously appeared in source code or Git history.
 
-## Reproducibility notes
+## Limitations
 
-- Preserve CSV row order: the evaluation files use dataset row indices as retrieval identifiers.
-- Relative image paths are resolved from the configured dataset root.
-- The qualitative comparison script uses a fixed random seed by default.
-- Generated logs are written to `logs/` by the batch downloader.
+CVW500k remains spatially sparse at world scale and may leave large regions underrepresented. Repetitive visual patterns can produce plausible but geographically incorrect matches. GeoQueryNet also prioritizes retrieval performance over lightweight deployment and has a higher computational cost than the evaluated baselines.
 
-## License and citation
+## Citation
 
-No license or citation information is currently included. Add the appropriate project license and citation details before distributing or reusing the dataset and generated imagery. Source datasets and imagery remain subject to their respective licenses and service terms.
+The local manuscript is a draft with placeholder author and DOI fields. A finalized BibTeX entry will be added after publication metadata is available. Until then, refer to the work by its title:
+
+```text
+Seeing Less in a Sparse World: Cross-View Geolocalization from
+Limited Field-of-View Observations. ACM SIGSPATIAL, 2026.
+```
+
+## License
+
+A repository license has not yet been added. The source dataset, Google Maps imagery, metadata sources, and manuscript material remain subject to their respective licenses and service terms.
