@@ -1,4 +1,4 @@
-# CVW500k: Cross-View World 500k
+# Seeing Less in a SparseWorld: Cross-View Geolocalization from Limited Field-of-View Observations
 
 <div style="text-align: center;">
   <p align="center">
