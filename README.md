@@ -130,9 +130,9 @@ The dataset, metadata, manuscript, evaluation tables, downloaded images, and gen
 
 Access links for CVW500k data and GeoQueryNet checkpoints have not yet been added. When released, place downloaded data under `datasets/` or update the script paths to match your storage layout. -->
 
-## Limitations
+<!--## Limitations
 
-CVW500k remains spatially sparse at world scale and may leave large regions underrepresented. Repetitive visual patterns can produce plausible but geographically incorrect matches. GeoQueryNet also prioritizes retrieval performance over lightweight deployment and has a higher computational cost than the evaluated baselines.
+CVW500k remains spatially sparse at world scale and may leave large regions underrepresented. Repetitive visual patterns can produce plausible but geographically incorrect matches. GeoQueryNet also prioritizes retrieval performance over lightweight deployment and has a higher computational cost than the evaluated baselines.-->
 
 <!-- ## Citation
 
