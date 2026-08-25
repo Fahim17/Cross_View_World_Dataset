@@ -1,5 +1,11 @@
 # CVW500k: Cross-View World 500k
 
+<div style="text-align: center;">
+  <p align="center">
+    <b>Fahimul Aleem · Shruti Vyas</b>
+  </p>
+</div>
+
 [![Paper](https://img.shields.io/badge/Paper-PDF-b31b1b.svg)]()
 [![Project Page](https://img.shields.io/badge/Project-Page-245b4c.svg)]()
 
