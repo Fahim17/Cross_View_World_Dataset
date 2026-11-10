@@ -6,7 +6,7 @@
   </p>
 </div>
 
-[![Paper](https://img.shields.io/badge/Paper-PDF-b31b1b.svg)]()
+[![Paper](https://img.shields.io/badge/Paper-PDF-b31b1b.svg)](https://arxiv.org/html/2611.00288v1)
 [![Project Page](https://img.shields.io/badge/Project-Page-245b4c.svg)]()
 
 <p align="center">
